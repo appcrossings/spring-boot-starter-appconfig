@@ -43,7 +43,7 @@ public class TestSkipClasspathConfig extends AbstractTestNGSpringContextTests {
       ConfigClient c =
           new ConfigClient("classpath:/env/hosts.properties");
       c.setPassword("secret");
-      c.setSearchClasspath(false);
+      c.setTraverseClasspath(false);
       return c;
     }
 
