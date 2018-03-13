@@ -1,4 +1,4 @@
-package com.appcrossings.config;
+package com.appcrossings.config.spring;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -8,8 +8,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
-import com.appcrossings.config.TestCustomConfig.SampleApplicationContext;
+import com.appcrossings.config.ConfigClient;
+import com.appcrossings.config.spring.TestCustomConfig.SampleApplicationContext;
 
 @DirtiesContext
 @ContextConfiguration(classes = SampleApplicationContext.class)
@@ -21,19 +21,9 @@ public class TestCustomConfig extends AbstractTestNGSpringContextTests {
 
   @Test
   public void testDetectHost() {
-    String hostName = config.envUtil.detectHostName();
+    String hostName = config.getEnvironment().detectHostName();
     Assert.assertNotNull(hostName);
-  }
-
-  @Test
-  public void overrideHostName() throws Exception {
-    System.setProperty("hostname", "testhost");
-
-    String hostName = config.envUtil.detectHostName();
-    Assert.assertNotNull(hostName);
-    Assert.assertEquals(hostName, "testhost");
-
-    System.setProperty("hostname", "michelangello-custom");
+    Assert.assertEquals(hostName, "michelangello-custom");
   }
 
   @Test
@@ -92,7 +82,7 @@ public class TestCustomConfig extends AbstractTestNGSpringContextTests {
       System.setProperty("hostname", "michelangello-custom");
     }
 
-    @Bean
+    @Bean(initMethod="init")
     public static ConfigClient createConfig() throws Exception {
       ConfigClient c =
           new ConfigClient("classpath:/env/hosts.properties");

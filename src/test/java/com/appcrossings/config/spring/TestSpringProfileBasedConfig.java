@@ -1,4 +1,4 @@
-package com.appcrossings.config;
+package com.appcrossings.config.spring;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
@@ -6,7 +6,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.Test;
-
+import com.appcrossings.config.Config;
 import static org.testng.Assert.*;
 
 
@@ -36,8 +36,8 @@ public class TestSpringProfileBasedConfig extends AbstractTestNGSpringContextTes
 
     assertEquals(clazz.getSomeValue1(), "custom");
     assertEquals(clazz.getSomeValue2(), "value2");
-    assertEquals(clazz.getSomeValue4(), "custom-custom2");
-    assertEquals(clazz.getSomeOtherValue(), "custom2");
+    assertEquals(clazz.getSomeValue4(), "custom-custom");
+    assertEquals(clazz.getSomeOtherValue(), "custom");
 
     assertNotNull(config.getProperty("property.1.name", String.class));
     assertEquals(config.getProperty("property.1.name", String.class), "custom");

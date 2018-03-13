@@ -1,4 +1,4 @@
-package com.appcrossings.config;
+package com.appcrossings.config.spring;
 
 import org.springframework.beans.factory.annotation.Value;
 

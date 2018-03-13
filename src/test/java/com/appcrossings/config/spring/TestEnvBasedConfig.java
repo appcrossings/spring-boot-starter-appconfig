@@ -1,23 +1,26 @@
-package com.appcrossings.config;
+package com.appcrossings.config.spring;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.Test;
-
+import com.appcrossings.config.Config;
 import static org.testng.Assert.*;
 
+
+@DirtiesContext
 @ContextConfiguration("classpath:META-INF/spring/test-spring-configurer.xml")
-public class TestAppConfigSpringConfigurer extends AbstractTestNGSpringContextTests {
+public class TestEnvBasedConfig extends AbstractTestNGSpringContextTests {
 
   static {
-    System.setProperty("env", "");
-    System.setProperty("hostname", "michelangello-custom");
+    System.setProperty("env", "QA");
+    System.setProperty("hostname", "");
   }
-
+  
   @Autowired
   private Config config;
-  
+
   @Autowired
   public SampleClass clazz;
 
@@ -28,13 +31,11 @@ public class TestAppConfigSpringConfigurer extends AbstractTestNGSpringContextTe
     assertNotNull(clazz.getSomeValue2());
     assertNotNull(clazz.getSomeValue4());
     assertNotNull(clazz.getSomeOtherValue());
-    assertNotNull(clazz.getBonus1());
 
     assertEquals(clazz.getSomeValue1(), "custom");
     assertEquals(clazz.getSomeValue2(), "value2");
-    assertEquals(clazz.getSomeValue4(), "custom-custom2");
-    assertEquals(clazz.getSomeOtherValue(), "custom2");
-    assertEquals(clazz.getBonus1(), "none");
+    assertEquals(clazz.getSomeValue4(), "custom-custom");
+    assertEquals(clazz.getSomeOtherValue(), "custom");
 
     assertNotNull(config.getProperty("property.1.name", String.class));
     assertEquals(config.getProperty("property.1.name", String.class), "custom");

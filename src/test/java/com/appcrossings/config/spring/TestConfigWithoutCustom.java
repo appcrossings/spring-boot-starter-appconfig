@@ -1,4 +1,4 @@
-package com.appcrossings.config;
+package com.appcrossings.config.spring;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -8,8 +8,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
-import com.appcrossings.config.TestConfigWithoutCustom.SampleApplicationContext;
+import com.appcrossings.config.ConfigClient;
+import com.appcrossings.config.spring.TestConfigWithoutCustom.SampleApplicationContext;
 
 @DirtiesContext
 @ContextConfiguration(classes = SampleApplicationContext.class)
@@ -35,7 +35,7 @@ public class TestConfigWithoutCustom extends AbstractTestNGSpringContextTests {
       System.setProperty("hostname", "michelangello");
     }
 
-    @Bean
+    @Bean(initMethod="init")
     public static ConfigClient createConfig() throws Exception {
       ConfigClient c =
           new ConfigClient("classpath:/env/hosts.properties");

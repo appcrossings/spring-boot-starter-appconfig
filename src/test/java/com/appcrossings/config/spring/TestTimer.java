@@ -1,4 +1,4 @@
-package com.appcrossings.config;
+package com.appcrossings.config.spring;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
@@ -42,8 +42,8 @@ public class TestTimer extends AbstractTestNGSpringContextTests {
 
     assertEquals(sample.getSomeValue1(), "custom");
     assertEquals(sample.getSomeValue2(), "value2");
-    assertEquals(sample.getSomeValue4(), "custom-custom2");
-    assertEquals(sample.getSomeOtherValue(), "custom2");
+    assertEquals(sample.getSomeValue4(), "custom-custom");
+    assertEquals(sample.getSomeOtherValue(), "custom");
     
     Assert.assertNotNull(property5);
     Assert.assertEquals(property5, "classpath");

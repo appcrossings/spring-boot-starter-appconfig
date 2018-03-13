@@ -1,4 +1,4 @@
-package com.appcrossings.config;
+package com.appcrossings.config.spring;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
@@ -11,8 +11,9 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.Test;
-
-import com.appcrossings.config.TestBeanAppConfigSpringConfigurer.SampleApplicationContext;
+import com.appcrossings.config.Config;
+import com.appcrossings.config.ConfigClient;
+import com.appcrossings.config.spring.TestBeanAppConfigSpringConfigurer.SampleApplicationContext;
 
 @ContextConfiguration(classes = SampleApplicationContext.class)
 public class TestBeanAppConfigSpringConfigurer extends AbstractTestNGSpringContextTests {
@@ -30,7 +31,7 @@ public class TestBeanAppConfigSpringConfigurer extends AbstractTestNGSpringConte
 		assertNotNull(clazz.getBonus1(), "bonus2");
 
 		assertNotNull(config.getProperty("property.1.name", String.class));
-		assertEquals(config.getProperty("property.1.name", String.class), "custom");
+		assertEquals(config.getProperty("property.1.name", String.class), "simple");
 	}
 
 	@Configuration
@@ -45,7 +46,7 @@ public class TestBeanAppConfigSpringConfigurer extends AbstractTestNGSpringConte
 		@Value("${property.3.name:none}")
 		private String otherProperty;
 
-		@Bean
+		@Bean(initMethod="init")
 		public static ConfigClient createConfig() throws Exception {
 			ConfigClient c = new ConfigClient("classpath:/env/hosts.properties");
 			c.setPassword("secret");
