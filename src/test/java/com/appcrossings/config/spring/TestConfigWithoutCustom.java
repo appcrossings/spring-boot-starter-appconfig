@@ -9,6 +9,7 @@ import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import com.appcrossings.config.ConfigClient;
+import com.appcrossings.config.ConfigClient.Method;
 import com.appcrossings.config.spring.TestConfigWithoutCustom.SampleApplicationContext;
 
 @DirtiesContext
@@ -38,7 +39,7 @@ public class TestConfigWithoutCustom extends AbstractTestNGSpringContextTests {
     @Bean(initMethod="init")
     public static ConfigClient createConfig() throws Exception {
       ConfigClient c =
-          new ConfigClient("classpath:/env/hosts.properties");
+          new ConfigClient("classpath:/env/hosts.properties", Method.DISCOVER);
       c.setPassword("secret");
       return c;
     }

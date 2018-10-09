@@ -34,13 +34,13 @@ public class TestSpringProfileBasedConfig extends AbstractTestNGSpringContextTes
     assertNotNull(clazz.getSomeValue4());
     assertNotNull(clazz.getSomeOtherValue());
 
-    assertEquals(clazz.getSomeValue1(), "custom");
+    assertEquals(clazz.getSomeValue1(), "vendor");
     assertEquals(clazz.getSomeValue2(), "value2");
-    assertEquals(clazz.getSomeValue4(), "custom-custom");
-    assertEquals(clazz.getSomeOtherValue(), "custom");
+    assertEquals(clazz.getSomeValue4(), "vendor-vendor");
+    assertEquals(clazz.getSomeOtherValue(), "vendor");
 
     assertNotNull(config.getProperty("property.1.name", String.class));
-    assertEquals(config.getProperty("property.1.name", String.class), "custom");
+    assertEquals(config.getProperty("property.1.name", String.class), "vendor");
   }
 
 }

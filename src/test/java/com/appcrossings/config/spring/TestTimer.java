@@ -28,7 +28,7 @@ public class TestTimer extends AbstractTestNGSpringContextTests {
   
   static {
     System.setProperty("env", "");
-    System.setProperty("hostname", "michelangello-custom");
+    System.setProperty("hostname", "michelangello-vendor");
   }
 
   @Test
@@ -40,10 +40,10 @@ public class TestTimer extends AbstractTestNGSpringContextTests {
     assertNotNull(sample.getSomeOtherValue());
     assertNotNull(sample.getBonus1());
 
-    assertEquals(sample.getSomeValue1(), "custom");
+    assertEquals(sample.getSomeValue1(), "vendor");
     assertEquals(sample.getSomeValue2(), "value2");
-    assertEquals(sample.getSomeValue4(), "custom-custom");
-    assertEquals(sample.getSomeOtherValue(), "custom");
+    assertEquals(sample.getSomeValue4(), "vendor-vendor");
+    assertEquals(sample.getSomeOtherValue(), "vendor");
     
     Assert.assertNotNull(property5);
     Assert.assertEquals(property5, "classpath");

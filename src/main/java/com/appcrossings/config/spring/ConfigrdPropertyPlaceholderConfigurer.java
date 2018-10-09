@@ -10,10 +10,10 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
-import org.springframework.core.env.Environment;
 import com.appcrossings.config.Config;
 import com.appcrossings.config.ConfigClient;
 import com.appcrossings.config.ConfigClient.Method;
+import com.appcrossings.config.Environment;
 
 
 /**
@@ -49,7 +49,7 @@ public class ConfigrdPropertyPlaceholderConfigurer extends PropertySourcesPlaceh
    */
   public ConfigrdPropertyPlaceholderConfigurer(String path) throws Exception {
     setLocalOverride(true);
-    client = new ConfigClient(path, Method.HOST_FILE);
+    client = new ConfigClient(path);
   }
 
   /**
@@ -128,10 +128,6 @@ public class ConfigrdPropertyPlaceholderConfigurer extends PropertySourcesPlaceh
     client.getEnvironment().setEnvironmentName(environmentName);
   }
 
-  public void setFileNamePattern(String fileName) {
-    client.setFileNamePattern(fileName);
-  }
-
   public void setHostName(String hostName) {
     client.getEnvironment().setHostName(hostName);
   }
@@ -162,7 +158,4 @@ public class ConfigrdPropertyPlaceholderConfigurer extends PropertySourcesPlaceh
     return client.getProperties();
   }
 
-  public void traverseClasspath(boolean traverse) {
-    this.client.setTraverseClasspath(traverse);
-  }
 }

@@ -12,7 +12,7 @@ public class TestAppConfigSpringConfigurer extends AbstractTestNGSpringContextTe
 
   static {
     System.setProperty("env", "");
-    System.setProperty("hostname", "michelangello-custom");
+    System.setProperty("hostname", "michelangello-vendor");
   }
 
   @Autowired
@@ -30,14 +30,14 @@ public class TestAppConfigSpringConfigurer extends AbstractTestNGSpringContextTe
     assertNotNull(clazz.getSomeOtherValue());
     assertNotNull(clazz.getBonus1());
 
-    assertEquals(clazz.getSomeValue1(), "custom");
+    assertEquals(clazz.getSomeValue1(), "vendor");
     assertEquals(clazz.getSomeValue2(), "value2");
-    assertEquals(clazz.getSomeValue4(), "custom-custom");
-    assertEquals(clazz.getSomeOtherValue(), "custom");
+    assertEquals(clazz.getSomeValue4(), "vendor-vendor");
+    assertEquals(clazz.getSomeOtherValue(), "vendor");
     assertEquals(clazz.getBonus1(), "none");
 
     assertNotNull(config.getProperty("property.1.name", String.class));
-    assertEquals(config.getProperty("property.1.name", String.class), "custom");
+    assertEquals(config.getProperty("property.1.name", String.class), "vendor");
   }
 
 }

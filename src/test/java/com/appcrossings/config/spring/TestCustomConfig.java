@@ -9,6 +9,7 @@ import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import com.appcrossings.config.ConfigClient;
+import com.appcrossings.config.ConfigClient.Method;
 import com.appcrossings.config.spring.TestCustomConfig.SampleApplicationContext;
 
 @DirtiesContext
@@ -23,7 +24,7 @@ public class TestCustomConfig extends AbstractTestNGSpringContextTests {
   public void testDetectHost() {
     String hostName = config.getEnvironment().detectHostName();
     Assert.assertNotNull(hostName);
-    Assert.assertEquals(hostName, "michelangello-custom");
+    Assert.assertEquals(hostName, "michelangello-vendor");
   }
 
   @Test
@@ -31,7 +32,7 @@ public class TestCustomConfig extends AbstractTestNGSpringContextTests {
 
     String value = config.getProperty("property.1.name", String.class);
     Assert.assertNotNull(value);
-    Assert.assertEquals(value, "custom");
+    Assert.assertEquals(value, "vendor");
 
     value = config.getProperty("property.2.name", String.class);
     Assert.assertNotNull(value);
@@ -44,7 +45,7 @@ public class TestCustomConfig extends AbstractTestNGSpringContextTests {
 
     String value = config.getProperty("property.1.name", String.class);
     Assert.assertNotNull(value);
-    Assert.assertEquals(value, "custom");
+    Assert.assertEquals(value, "vendor");
 
   }
 
@@ -79,13 +80,12 @@ public class TestCustomConfig extends AbstractTestNGSpringContextTests {
 
     static {
       System.setProperty("env", "QA");
-      System.setProperty("hostname", "michelangello-custom");
+      System.setProperty("hostname", "michelangello-vendor");
     }
 
-    @Bean(initMethod="init")
+    @Bean(initMethod = "init")
     public static ConfigClient createConfig() throws Exception {
-      ConfigClient c =
-          new ConfigClient("classpath:/env/hosts.properties");
+      ConfigClient c = new ConfigClient("classpath:/env/hosts.properties", Method.DISCOVER);
       c.setPassword("secret");
       return c;
     }
